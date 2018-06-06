@@ -160,6 +160,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         *
+         */
+        App\Http\Destination\Providers\DestinationProvider::class,
+
     ],
 
     /*

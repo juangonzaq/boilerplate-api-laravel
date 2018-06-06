@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Events\Providers;
+namespace App\Http\Destination\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

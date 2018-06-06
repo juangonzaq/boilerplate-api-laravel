@@ -1,26 +1,35 @@
 <?php
 namespace App\Http\Destination\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Http\Common\Responses\ResponseBase;
 use App\Http\Destination\Contracts\IDestination;
+use App\Http\Destination\Requests\DestinationRequest;
 
-class DestinationController extends Controller
+class DestinationController extends ResponseBase
 {
-
+    protected $IDestination;
     public function __construct(IDestination $IDestination)
     {
         $this->IDestination = $IDestination;
         $this->middleware('guest');
     }
 
-    public function show()
+    public function index()
     {
-        $this->IDestination->show(1);
+        $destinations = $this->IDestination->index();
+        return $this->sendResponse($destinations, 'Destinations retrieved successfully.');
     }
 
-    public function store()
+    public function show()
     {
+        $destinations = $this->IDestination->findBy('id', 1);
+        return $this->sendResponse($destinations, 'Destination retrieved successfully.');
+    }
 
+    public function store(DestinationRequest $request)
+    {
+        $destination = $this->IDestination->store($request->all());
+        return $this->sendResponse($destination, 'Destination created successfully.');
     }
 
     public function update($id)
