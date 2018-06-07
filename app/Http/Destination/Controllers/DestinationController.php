@@ -46,4 +46,9 @@ class DestinationController extends ResponseBase
         return $this->sendResponse($destination, 'Destination deleted successfully.');
     }
 
+    public function search(){
+        $destinations = $this->IDestination->findAllBy(request()->query());
+        return $this->sendResponse($destinations, 'Destination list successfully.');
+    }
+
 }
