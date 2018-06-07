@@ -81,7 +81,7 @@ abstract class CommonRepository implements ICommonRepository
         return $this->model->save();
     }
 
-    public function update(array $data, $id)
+    public function update($id, array $data)
     {
         $model = $this->model->find($id);
         $model->fill($data);

@@ -20,7 +20,7 @@ interface ICommonRepository
 
     public function saveModel(array $data);
 
-    public function update(array $data, $id);
+    public function update($id, array $data);
 
     public function delete($id);
 

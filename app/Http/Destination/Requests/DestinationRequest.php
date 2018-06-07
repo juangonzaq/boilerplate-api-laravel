@@ -4,6 +4,7 @@ namespace App\Http\Destination\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Request;
 
 class DestinationRequest extends FormRequest
 {
@@ -12,11 +13,25 @@ class DestinationRequest extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
-            'name' => 'required|unique:destinations|max:100'
-        ];
+        $rules = [];
+        switch($request->method()){
+            case 'POST':
+                $rules =
+                    [
+                        'name' => 'required|unique:destinations|max:100'
+                    ];
+                break;
+            case 'PUT':
+                $rules =
+                    [
+                        'name' => 'unique:destinations|max:100'
+                    ];
+                break;
+        }
+
+        return $rules;
     }
 
     public function messages()

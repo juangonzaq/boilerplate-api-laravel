@@ -18,6 +18,6 @@ class CreateTransportTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('transport');
+        Schema::dropIfExists('transports');
     }
 }
