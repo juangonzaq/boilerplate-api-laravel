@@ -2,48 +2,35 @@
 namespace App\Http\Destination\Repositories;
 
 use App\Http\Destination\Contracts\IDestination;
+use App\Http\Common\Repositories\CommonRepository;
 
-class DestinationRepository implements IDestination
+class DestinationRepository extends CommonRepository implements IDestination
 {
-
     protected $destinationEntity;
+    protected $model;
 
     public function __construct($destinationEntity)
     {
-        $this->destinationEntity = $destinationEntity;
+        $this->model = $destinationEntity;
     }
 
     public function index()
     {
-        return $this->destinationEntity->get();
-    }
-
-    public function findBy($column, $value)
-    {
-        return $this->destinationEntity->where($column, $value)->get();
+        return $this->model->get();
     }
 
     public function show($id){
-        $this->destinationEntity->get();
+        $this->model->get();
     }
 
     public function store($data)
     {
-        return $this->destinationEntity->create($data);
-    }
-
-    public function update($id, $data)
-    {
-        $model = $this->destinationEntity->find($id);
-        $model->fill($data);
-        if(!$model->isDirty()){
-            return false;
-        }
-        return $model->save();
+        return $this->model->create($data);
     }
 
     public function destroy($id)
     {
-        return $this->destinationEntity->destroy($id);
+        return $this->model->destroy($id);
     }
+
 }

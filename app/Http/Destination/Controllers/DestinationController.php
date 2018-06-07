@@ -8,6 +8,8 @@ use App\Http\Destination\Requests\DestinationRequest;
 class DestinationController extends ResponseBase
 {
     protected $IDestination;
+    protected $ICommonRepository;
+
     public function __construct(IDestination $IDestination)
     {
         $this->IDestination = $IDestination;
@@ -16,7 +18,7 @@ class DestinationController extends ResponseBase
 
     public function index()
     {
-        $destinations = $this->IDestination->index();
+        $destinations = $this->IDestination->all();
         return $this->sendResponse($destinations, 'Destinations retrieved successfully.');
     }
 
