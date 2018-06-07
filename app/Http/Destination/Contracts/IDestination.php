@@ -11,7 +11,7 @@ interface IDestination
 
     public function store($data);
 
-    public function update();
+    public function update($id, $data);
 
     public function destroy($id);
 }

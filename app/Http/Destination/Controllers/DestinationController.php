@@ -34,13 +34,14 @@ class DestinationController extends ResponseBase
 
     public function update($id, DestinationRequest $request)
     {
-        $destination = $this->IDestination->update($request->all());
-        return $this->sendResponse($destination, 'Destination created successfully.');
+        $destination = $this->IDestination->update($id, $request->all());
+        return $this->sendResponse($destination, 'Destination updated successfully.');
     }
 
     public function destroy($id)
     {
-
+        $destination = $this->IDestination->destroy($id);
+        return $this->sendResponse($destination, 'Destination deleted successfully.');
     }
 
 }

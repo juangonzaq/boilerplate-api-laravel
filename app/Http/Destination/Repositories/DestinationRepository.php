@@ -32,11 +32,18 @@ class DestinationRepository implements IDestination
         return $this->destinationEntity->create($data);
     }
 
-    public function update()
+    public function update($id, $data)
     {
+        $model = $this->destinationEntity->find($id);
+        $model->fill($data);
+        if(!$model->isDirty()){
+            return false;
+        }
+        return $model->save();
     }
 
     public function destroy($id)
     {
+        return $this->destinationEntity->destroy($id);
     }
 }
