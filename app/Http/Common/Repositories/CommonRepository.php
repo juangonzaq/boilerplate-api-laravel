@@ -32,13 +32,20 @@ abstract class CommonRepository implements ICommonRepository
 
     public function first(array $columns = ['*'], array $where = [], array $relations = [])
     {
-        if( count($relations) > 0 ){
-            $this->model = $this->model->with($relations);
+        try{
+
+            if( count($relations) > 0 ){
+                $this->model = $this->model->with($relations);
+            }
+            if( count($where) > 0 ){
+                $this->model = $this->addWhere($where);
+            }
+            return $this->model->first($columns);
+
+        } catch (\Exception $e){
+            \Log::info($e->getMessage());
+            return [];
         }
-        if( count($where) > 0 ){
-            $this->model = $this->addWhere($where);
-        }
-        return $this->model->first($columns);
     }
 
     public function findBy($attribute, $value, array $columns = ['*'], array $relations = [])
@@ -59,13 +66,18 @@ abstract class CommonRepository implements ICommonRepository
 
     public function findAllBy(array $where = [], array $columns = ['*'], array $relations = [])
     {
-        if( count($relations) > 0 ){
-            $this->model = $this->model->with($relations);
+        try {
+            if( count($relations) > 0 ){
+                $this->model = $this->model->with($relations);
+            }
+            if( count($where) > 0 ){
+                $this->model = $this->addWhere($where);
+            }
+            return $this->model->get($columns);
+        } catch (\Exception $e){
+            \Log::info($e->getMessage());
+            return [];
         }
-        if( count($where) > 0 ){
-            $this->model = $this->addWhere($where);
-        }
-        return $this->model->get($columns);
     }
 
     public function create(array $data)
@@ -98,11 +110,17 @@ abstract class CommonRepository implements ICommonRepository
 
     public function select($key, $column, array $where = [])
     {
-        $model = $this->model;
-        if( count($where) > 0 ){
-            $model = $this->addWhere($where);
+        try {
+            $model = $this->model;
+            if( count($where) > 0 ){
+                $model = $this->addWhere($where);
+            }
+            return $model->orderBy($column)->pluck($column, $key)->prepend('** Seleccione **', "");
+
+        } catch (\Exception $e){
+            \Log::info($e->getMessage());
+            return [];
         }
-        return $model->orderBy($column)->pluck($column, $key)->prepend('** Seleccione **', "");
     }
 
     public function makeModel()

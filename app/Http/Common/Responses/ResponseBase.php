@@ -6,6 +6,10 @@ abstract class ResponseBase extends Controller
 {
     public function sendResponse($result, $message = '')
     {
+        if(is_null($result) or (is_array($result) and count($result) == 0)){
+            $message = 'No tenemos datos que mostrar';
+        }
+
         $response = [
             'success' => true,
             'data' => $result,
