@@ -44,6 +44,7 @@ class DestinationRequest extends FormRequest
 
     public function failedValidation(Validator $validator)
     {
+        header('HTTP/1.1 400', true, 400);
         exit(json_encode([
             'success' => false,
             'data' => $validator->errors()
