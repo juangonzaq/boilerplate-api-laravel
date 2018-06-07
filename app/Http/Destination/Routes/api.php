@@ -1,19 +1,13 @@
 <?php
 
-Route::prefix('destination')->group(function () {
+Route::prefix('v1')->group(function () {
 
-    Route::resource('/', 'DestinationController')->only(['index', 'show', 'store', 'update', 'destroy']);
+    Route::resource('destination', 'DestinationController')->except(['create', 'edit']);
 
-    Route::prefix('services')->group(function () {
-        Route::resource('/', 'ServiceController')->only(['index', 'show', 'store', 'update', 'destroy']);
-    });
+    Route::resource('services', 'ServiceController')->except(['create', 'edit']);
 
-    Route::prefix('hotel')->group(function () {
-        Route::resource('/', 'HotelController')->only(['index', 'show', 'store', 'update', 'destroy']);
-    });
+    Route::resource('hotel', 'HotelController')->except(['create', 'edit']);
 
-    Route::prefix('rating')->group(function () {
-        Route::resource('/', 'RatingController')->only(['index', 'show', 'store', 'update', 'destroy']);
-    });
+    //Route::resource('rating', 'RatingController')->except(['create', 'edit']);
 
 });

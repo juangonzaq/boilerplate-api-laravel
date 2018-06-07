@@ -20,9 +20,9 @@ class DestinationController extends ResponseBase
         return $this->sendResponse($destinations, 'Destinations retrieved successfully.');
     }
 
-    public function show()
+    public function show($id)
     {
-        $destinations = $this->IDestination->findBy('id', 1);
+        $destinations = $this->IDestination->findBy('id', $id);
         return $this->sendResponse($destinations, 'Destination retrieved successfully.');
     }
 
@@ -32,9 +32,10 @@ class DestinationController extends ResponseBase
         return $this->sendResponse($destination, 'Destination created successfully.');
     }
 
-    public function update($id)
+    public function update($id, DestinationRequest $request)
     {
-
+        $destination = $this->IDestination->update($request->all());
+        return $this->sendResponse($destination, 'Destination created successfully.');
     }
 
     public function destroy($id)
