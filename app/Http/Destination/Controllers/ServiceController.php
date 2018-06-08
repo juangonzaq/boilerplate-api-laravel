@@ -1,36 +1,54 @@
 <?php
 namespace App\Http\Destination\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Destination\Contracts\IDestination;
+use App\Http\Common\Responses\ResponseBase;
+use App\Http\Destination\Contracts\IService;
+use App\Http\Destination\Requests\ServiceRequest;
 
-class ServiceController extends Controller
+class ServiceController extends ResponseBase
 {
+    protected $IService;
+    protected $ICommonRepository;
 
-    public function __construct(IDestination $IDestination)
+    public function __construct(IService $IService)
     {
-        $this->IDestination = $IDestination;
+        $this->IService = $IService;
         $this->middleware('guest');
     }
 
-    public function show()
+    public function index()
     {
-        $this->IDestination->show(1);
+        $services = $this->IService->all();
+        return $this->sendResponse($services, 'Services retrieved successfully.');
     }
 
-    public function store()
+    public function show($id)
     {
-
+        $services = $this->IService->findBy('id', $id);
+        return $this->sendResponse($services, 'Service retrieved successfully.');
     }
 
-    public function update($id)
+    public function store(ServiceRequest $request)
     {
+        $service = $this->IService->store($request->all());
+        return $this->sendResponse($service, 'Service created successfully.');
+    }
 
+    public function update($id, ServiceRequest $request)
+    {
+        $service = $this->IService->update($id, $request->all());
+        return $this->sendResponse($service, 'Service updated successfully.');
     }
 
     public function destroy($id)
     {
+        $service = $this->IService->destroy($id);
+        return $this->sendResponse($service, 'Service deleted successfully.');
+    }
 
+    public function search(){
+        $services = $this->IService->findAllBy(request()->query());
+        return $this->sendResponse($services, 'Service list successfully.');
     }
 
 }
