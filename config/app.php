@@ -164,6 +164,7 @@ return [
          *
          */
         App\Http\Destination\Providers\DestinationProvider::class,
+        App\Http\Home\Providers\HomeProvider::class,
 
     ],
 

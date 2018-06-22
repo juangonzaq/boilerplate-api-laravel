@@ -8,7 +8,8 @@ class Destination extends Model
 {
     public $fillable = ['name', 'slug', 'status', 'featured'];
 
-    public function setSlugAttribute($value){
+    public function setNameAttribute($value){
+        $this->attributes['name'] = $value;
         $this->attributes['slug'] = str_slug($value);
     }
 }

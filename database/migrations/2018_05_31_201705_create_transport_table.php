@@ -12,6 +12,7 @@ class CreateTransportTable extends Migration
             $table->increments('id');
             $table->string('name', 100);
             $table->enum('status', [0, 1])->default(1)->comment('1: activo, 0: inactivo');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

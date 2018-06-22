@@ -4,7 +4,7 @@ namespace App\Http\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Hotel extends Model
+class Faq extends Model
 {
     public $fillable = ['name', 'slug', 'status', 'featured', 'image'];
 
