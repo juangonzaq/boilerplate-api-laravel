@@ -33,9 +33,9 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')->namespace($this->namespace)->group(base_path('routes/api.php'));
 
         //Destination
-        Route::prefix('api')->middleware('auth:api')->namespace('App\Http\Destination\Controllers')->group(base_path('app/Http/Destination/Routes/api.php'));
+        Route::prefix('api')->namespace('App\Http\Destination\Controllers')->group(base_path('app/Http/Destination/Routes/api.php'));
 
         //Home
-        Route::prefix('api')->middleware('auth:api')->namespace('App\Http\Home\Controllers')->group(base_path('app/Http/Home/Routes/api.php'));
+        Route::prefix('api')->namespace('App\Http\Home\Controllers')->group(base_path('app/Http/Home/Routes/api.php'));
     }
 }
