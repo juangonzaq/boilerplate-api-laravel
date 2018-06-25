@@ -38,7 +38,7 @@ class DestinationRequest extends FormRequest
     {
         return [
             'name.required' => 'El nombre es obligatorio',
-            'name.unique'   => 'El nombre del destino debe ser único'
+            'name.unique'   => 'El nombre del destino debe ser unico'
         ];
     }
 

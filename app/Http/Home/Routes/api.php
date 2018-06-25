@@ -1,6 +1,7 @@
 <?php
 
 Route::prefix('v1')->group(function () {
+    Route::resource('configuration', 'ConfigurationController')->except(['destroy','create', 'edit', 'show']);
 
     Route::prefix('testimony')->group(function () {
         Route::get('search', 'TestimonyController@search');

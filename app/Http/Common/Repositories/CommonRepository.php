@@ -7,15 +7,7 @@ use App\Http\Common\Contracts\ICommonRepository;
 
 abstract class CommonRepository implements ICommonRepository
 {
-    private $app;
-
     protected $model;
-
-    public function __construct(App $app)
-    {
-        $this->app = $app;
-        $this->makeModel();
-    }
 
     public function all(array $columns = ['*'], array $relations = [])
     {
@@ -121,14 +113,6 @@ abstract class CommonRepository implements ICommonRepository
             \Log::info($e->getMessage());
             return [];
         }
-    }
-
-    public function makeModel()
-    {
-        $model = $this->app->make($this->model);
-        if(!$model instanceof $this->model)
-            throw new \Exception("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
-        return $this->model = $model;
     }
 
     public function addWhere(array $where)
