@@ -161,11 +161,18 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /*
-         *
+         * Providers app
          */
         App\Http\Destination\Providers\DestinationProvider::class,
         App\Http\Home\Providers\HomeProvider::class,
 
+        /*
+         * Pachakge
+         */
+
+        Barryvdh\Cors\ServiceProvider::class,
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Aws\Laravel\AwsServiceProvider::class,
     ],
 
     /*
@@ -214,7 +221,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'AWS' => Aws\Laravel\AwsFacade::class,
     ],
 
 ];
