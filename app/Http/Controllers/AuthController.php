@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-//use Carbon\Carbon;
+use Carbon\Carbon;
 use App\User;
 //use App\Notifications\SignupActivate;
 use Avatar;
@@ -108,17 +108,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-            'remember_me' => 'boolean'
-        ]);
-
-        $credentials = request(['email', 'password']);
-        $credentials['active'] = 1;
-        $credentials['deleted_at'] = null;
-
-        if(!Auth::attempt($credentials))
+        if(!Auth::attempt(['email' => $request->input('email'), 'password'  => $request->input('password')]))
             return response()->json([
                 'message' => 'Unauthorized'
             ], 401);
@@ -133,7 +123,10 @@ class AuthController extends Controller
 
         $token->save();
 
+        //return $user = Auth::user();
+
         return response()->json([
+            'user' => $user,
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(

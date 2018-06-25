@@ -6,6 +6,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'auth'], function () {
+    Route::get('404', function() {
+        return response()->json(['user' => 'guest', 'access' => false]);
+    })->name('login');
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
     Route::get('signup/{provider}', 'AuthController@redirectProvider');
