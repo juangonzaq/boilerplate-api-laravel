@@ -13,7 +13,7 @@ class DestinationController extends ResponseBase
     public function __construct(IDestination $IDestination)
     {
         $this->IDestination = $IDestination;
-        $this->middleware('guest');
+        //$this->middleware('auth:api');
     }
 
     public function index()
