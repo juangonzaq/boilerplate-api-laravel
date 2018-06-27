@@ -165,6 +165,7 @@ return [
          */
         App\Http\Destination\Providers\DestinationProvider::class,
         App\Http\Home\Providers\HomeProvider::class,
+        App\Http\Transaction\Providers\TransactionProvider::class,
 
         /*
          * Pachakge

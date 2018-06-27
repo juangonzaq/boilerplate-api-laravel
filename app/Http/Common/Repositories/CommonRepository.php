@@ -95,6 +95,16 @@ abstract class CommonRepository implements ICommonRepository
         return $model->save();
     }
 
+    public function updateBy($column, $value, array $data)
+    {
+        $model = $this->model->where($column, $value)->first();
+        $model->fill($data);
+        if(!$model->isDirty()){
+            return false;
+        }
+        return $model->save();
+    }
+
     public function delete($id)
     {
         return $this->model->destroy($id);

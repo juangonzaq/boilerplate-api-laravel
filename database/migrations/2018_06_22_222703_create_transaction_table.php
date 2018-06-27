@@ -17,7 +17,7 @@ class CreateTransactionTable extends Migration
             $table->unsignedInteger('destination_origin_id')->nullable();
             $table->foreign('destination_origin_id')->references('id')->on('destinations');
 
-            $table->string('code');
+            $table->string('code')->unique()->nullable();
             $table->string('payment_method')->nullable();
             $table->double('price_insurance')->nullable();
             $table->double('total_insurance')->nullable();
@@ -32,16 +32,16 @@ class CreateTransactionTable extends Migration
             $table->datetime('date_start')->nullable();
             $table->datetime('date_end')->nullable();
             $table->char('season_type', 1)->nullable();
-            $table->datetime('flight_schedule_start')->nullable();
-            $table->datetime('flight_schedule_back')->nullable();
+            $table->enum('flight_schedule_start', ['morning', 'night'])->nullable();
+            $table->enum('flight_schedule_back', ['morning', 'night'])->nullable();
             $table->integer('qty_unwanted_destinations')->nullable();
             $table->double('total_unwanted_destinations')->nullable();
-            $table->string('subject')->nullable();
+            $table->string('subject')->nullable()->default('Viaje KANGOO');
             $table->double('price_coupon')->nullable();
             $table->string('value_coupon')->nullable();
             $table->enum('type_passage', ['normal', 'premium'])->default('normal');
             $table->double('price_passage')->nullable();
-            $table->enum('status', [0, 1, 2])->comment('0: incomplete, 1:complete, 2: incomplete')->default(0);
+            $table->enum('status', [0, 1, 2])->comment('0: incomplete, 1:complete, 2: terminado, 3: asignado')->default(0);
 
             $table->softDeletes();
             $table->timestamps();

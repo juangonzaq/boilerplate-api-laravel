@@ -17,7 +17,6 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-
         $this->mapWebRoutes();
     }
 
@@ -37,5 +36,8 @@ class RouteServiceProvider extends ServiceProvider
 
         //Home
         Route::prefix('api')->namespace('App\Http\Home\Controllers')->group(base_path('app/Http/Home/Routes/api.php'));
+
+        //Transaction
+        Route::prefix('api')->namespace('App\Http\Transaction\Controllers')->group(base_path('app/Http/Transaction/Routes/api.php'));
     }
 }
