@@ -4,18 +4,36 @@ use App\Http\Controllers\Controller;
 
 abstract class ResponseBase extends Controller
 {
-    public function sendResponse($result, $message = '')
+    public function sendResponse($result, $message = '', $status = true)
     {
-        if(is_null($result) or (is_array($result) and count($result) == 0)){
-            $message = 'No tenemos datos que mostrar';
+        if(!$status){
+            $message = $this->setMessage($result);
         }
-
         $response = [
-            'success' => true,
+            'success' => $status,
             'data' => $result,
             'message' => $message,
         ];
         return response()->json($response, 200);
+    }
+    private function setMessage($result){
+        if(is_null($result) or (is_array($result) and count($result) == 0)){
+            switch (request()->method()){
+                case 'PUT':
+                    $message = 'Could not update';
+                    break;
+                case 'DELETE':
+                    $message = 'Could not deleted';
+                    break;
+                case 'POST':
+                    $message = 'Could not save';
+                    break;
+                case 'GET':
+                    $message = 'Could not get';
+                    break;
+            }
+            return $message;
+        }
     }
 
     public function sendResponseCreated($result, $message = '')

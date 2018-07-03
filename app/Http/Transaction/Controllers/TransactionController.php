@@ -24,7 +24,7 @@ class TransactionController extends ResponseBase
     public function index()
     {
         $transactions = $this->ITransaction->all();
-        return $this->sendResponse($transactions, 'Transactions retrieved successfully.');
+        return $this->sendResponse($transactions);
     }
 
     public function show($id)
@@ -41,10 +41,10 @@ class TransactionController extends ResponseBase
 
     public function update($id, TransactionRequest $request)
     {
-        $this->ITransaction->updateBy('code', $id, $request->all());
+        $this->status = $this->ITransaction->updateBy('code', $id, $request->all());
         $this->ITransactionDestination->updateDeletedDestinations($id, $request['delete_destination']);
 
-        return $this->sendResponse($this->status, 'Transaction updated successfully.');
+        return $this->sendResponse([], 'Transaction updated successfully.', $this->status);
     }
 
     public function destroy($code)
