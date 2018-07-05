@@ -4,6 +4,7 @@ namespace App\Http\Common\Repositories;
 
 use Illuminate\Container\Container as App;
 use App\Http\Common\Contracts\ICommonRepository;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 abstract class CommonRepository implements ICommonRepository
 {
@@ -98,18 +99,9 @@ abstract class CommonRepository implements ICommonRepository
     public function updateBy($column, $value, array $data)
     {
         try {
-            $model = $this->model->where($column, $value)->first();
-            if(!is_null($model)){
-
-                $model->fill($data);
-                if(!$model->isDirty()){
-                    return false;
-                }
-                return $model->save();
-            }
-            return false;
+            return $this->model->where($column, $value)->update($data);
         } catch (\Exception $exception) {
-            throw new \HttpResponseException(response()->json([
+            throw new HttpResponseException(response()->json([
                 'success' => false,
                 'message' => $exception->getMessage()
             ], 422));

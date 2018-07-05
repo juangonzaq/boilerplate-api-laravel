@@ -41,9 +41,11 @@ class TransactionController extends ResponseBase
 
     public function update($id, TransactionRequest $request)
     {
-        $this->status = $this->ITransaction->updateBy('code', $id, $request->all());
-        $this->ITransactionDestination->updateDeletedDestinations($id, $request['delete_destination']);
-
+        if(count($request['delete_destination']) == 0){
+            $this->status = $this->ITransaction->updateBy('code', $id, $request->all());
+        } else {
+            $this->status = $this->ITransactionDestination->updateDeletedDestinations($id, $request['delete_destination']);
+        }
         return $this->sendResponse([], 'Transaction updated successfully.', $this->status);
     }
 

@@ -16,6 +16,7 @@ class CreateConfigurationTable extends Migration
             $table->double('price_limit_flight');
             $table->double('price_insurance');
             $table->double('price_delete_destination');
+            $table->char('qty_max_delete_destination',2);
             $table->softDeletes();
             $table->timestamps();
         });
