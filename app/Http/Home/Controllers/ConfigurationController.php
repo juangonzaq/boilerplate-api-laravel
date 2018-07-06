@@ -30,22 +30,22 @@ class ConfigurationController extends ResponseBase
             'days_available' => [
                 [
                     'id' => 1,
-                    'key' => '3',
+                    'key' => 3,
                     'value' => '3 días (Sábado - Lunes)'
                 ],
                 [
                     'id' => 2,
-                    'key' => '3',
+                    'key' => 3,
                     'value' => '3 días (Viernes - Domingo)'
                 ],
                 [
                     'id' => 3,
-                    'key' => '5',
+                    'key' => 5,
                     'value' => '5 días (Lunes - Viernes)'
                 ],
                 [
                     'id' => 4,
-                    'key' => '5',
+                    'key' => 5,
                     'value' => '5 días (Lunes - Miercoles)'
                 ],
             ],
